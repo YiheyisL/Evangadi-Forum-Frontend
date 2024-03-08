@@ -1,102 +1,53 @@
-import { useContext, useEffect } from "react";
-import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
-import { AppState } from "../../App";
-import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
+import React from "react";
+import logo from "../../image/logo1.png";
 
-import Navbar from "react-bootstrap/Navbar";
-import Offcanvas from "react-bootstrap/Offcanvas";
-
-function Header() {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(AppState);
-
-  const logout = () => {
-    // Clear the user object
-    setUser(null);
-
-    // Clear token from localStorage
-    localStorage.setItem("token", "");
-    navigate("/login");
-  };
-  useEffect(() => {
-    // Check if a token is present in localStorage
-    const storedToken = localStorage.getItem("token");
-
-    if (storedToken) {
-      // If a token is present, set the user as logged in
-      setUser({});
-    } else {
-      // If no token is present, set the user as logged out
-      setUser(null);
-    }
-  }, [setUser]);
-
+const Header = () => {
   return (
-    <>
-      {["md"].map((expand) => (
-        <Navbar
-          key={expand}
-          expand={expand}
-          className="bg-body-tertiary p-2 fixed-top shadow-sm mb-5"
-        >
-          <Container fluid>
-            <Navbar.Brand>
-              <Link className="navbar-brand" to={"/"}>
-                <img
-                  className="evangadiImage"
-                  src="https://www.evangadi.com/themes/humans//assets/images/misc/evangadi-logo-home.png"
-                  alt="evangadi logo"
-                />
-              </Link>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="end"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title
-                  id={`offcanvasNavbarLabel-expand-${expand}`}
-                ></Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link>
-                    <div
-                      onClick={() =>
-                        user ? navigate("/") : navigate("/login")
-                      }
-                    >
-                      Home
-                    </div>
-                  </Nav.Link>
-                  <Nav.Link href="#">
-                    <Link className="links">How it works</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <div className="connect-block btn-blue">
-                      {user ? (
-                        <span onClick={logout} className="tomblue">
-                          LOG OUT
-                        </span>
-                      ) : (
-                        <Link to="/login">
-                          <span className="tomblue">SIGN IN</span>
-                        </Link>
-                      )}
-                    </div>
-                  </Nav.Link>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
-    </>
+    <section className="section_container">
+      <nav className="navbar p-0 navbar-expand-lg   ">
+        <div className="container  section_container">
+          <a className="navbar-brand " href="#">
+            <img src={logo} alt="" />
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end  fw-semibold"
+            id="navbarNavDropdown"
+          >
+            <ul className="navbar-nav">
+              <li className="nav-item align-items-center d-flex">
+                <a className="nav-link active" aria-current="page" href="#">
+                  Home
+                </a>
+              </li>
+              <li className="nav-item align-items-center d-flex">
+                <a className="nav-link " href="#">
+                  How it Workes
+                </a>
+              </li>
+              <li className="nav-item lign-items-center ">
+                <a className="nav-link" href="/login">
+                  <button className="btn btn-primary fw-bold px-5 action_btn  ">
+                    SIGN IN{" "}
+                  </button>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
   );
-}
+};
 
 export default Header;

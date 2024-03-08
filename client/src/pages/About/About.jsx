@@ -1,79 +1,68 @@
-// import React from 'react';
-import "./About.css";
-// import Login from './login/Login';
-// import { Link } from 'react-router-dom';
-// import Register from './Register';
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import "./carousel.css";
-// import AuthCarousel from "./AuthCarousel";
-function About() {
+import React, { useState } from "react";
+import Header from "../Header/Header";
+import bg from "../../image/bg.jpg";
+import Login from "../login/Login";
+import SignUp from "../Register";
+
+const LandingLayout = () => {
+  const [currentPage, setCurrentPage] = useState("signup");
   return (
-    <section id="home">
-      <div className="slide-home">
-        <div className="slide-item">
-          <div className="container">
-            <div className="row hero-padd">
-              <div className="  col-sm-12 col-md-6">
-                <div className="authfy-login">{/* <AuthCarousel /> */}</div>
-              </div>
+    <section>
+      <Header />
+      <main
+        className="landing bg-body-tertiary "
+        style={{
+          background: `url(${bg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <section className="container d-md-flex pt-5 gap-5">
+          {/* form  */}
+          {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
 
-              <div className="  col-sm-12 col-md-6  p-5 signs aboutMainWrapper">
-                <div className="aboutMainWrapper">
-                  <p className="aboutColor">About</p>
-                  <h1 className="abouttitle">Evangadi Networks Q&A</h1>
-                  <div className="textColor">
-                    <p>
-                      No matter what stage of life you are in, whether you’re
-                      just starting elementary school or being promoted to CEO
-                      of a Fortune 500 company, you have much to offer to those
-                      who are trying to follow in your footsteps.
-                    </p>
+          {currentPage === "signup" && (
+            <SignUp setCurrentPage={setCurrentPage} />
+          )}
 
-                    <p>
-                      Wheather you are willing to share your knowledge or you
-                      are just looking to meet mentors of your own, please start
-                      by joining the network here.
-                    </p>
-                  </div>
+          {/* {currentPage === "signup" && (
+            <SignUp setCurrentPage={setCurrentPage} />
+          )} */}
+          {/* <Login /> */}
 
-                  <button className="aboutButton">HOW IT WORKS</button>
-                </div>
-              </div>
+          {/* message */}
+          <div className="col ">
+            <p className="text-warning  fw-semibold">About</p>
+            <h1 className="fw-bold">Evangadi Networks Q&A</h1>
+            <div className="d-flex flex-column gap-4">
+              <p>
+                No matter what stage of life you are in, whether you’re just
+                starting elementary school or being promoted to CEO of a Fortune
+                500 company, you have much to offer to those who are trying to
+                follow in your footsteps.
+              </p>
+              <p>
+                Wheather you are willing to share your knowledge or you are just
+                looking to meet mentors of your own, please start by joining the
+                network here.
+              </p>
             </div>
+            <button
+              className="px-5 py-2 fw-bold mt-3"
+              style={{
+                backgroundColor: "rgb(255,133,0)",
+                color: "white",
+                border: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              How It Works
+            </button>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </section>
   );
-}
+};
 
-{
-  /* <div className="container maindiv" id="home">
-	<div className="row">
-		<div className="col-md-6">
-			<div className="aboutMainWrapper">
-				<p className="aboutColor">About</p>
-				<h1 className="abouttitle">Evangadi Networks Q&A</h1>
-				<div className="textColor">
-					<p>
-						No matter what stage of life you are in, whether you’re just
-						starting elementary school or being promoted to CEO of a Fortune 500
-						company, you have much to offer to those who are trying to follow in
-						your footsteps.
-					</p>
-
-					<p>
-						Wheather you are willing to share your knowledge or you are just
-						looking to meet mentors of your own, please start by joining the
-						network here.
-					</p>
-				</div>
-
-				<button className="aboutButton">HOW IT WORKS</button>
-			</div>
-		</div>
-	</div>
-</div>; */
-}
-
-export default About;
+export default LandingLayout;

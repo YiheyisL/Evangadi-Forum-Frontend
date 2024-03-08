@@ -1,64 +1,88 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import axios from "../../api/axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
 
-import classes from "../register.module.css";
-// import { AppState } from "../../App";
-function Login() {
-  // const { user, setUser } = useContext(AppState);
-
+const Login = ({ setCurrentPage }) => {
   const navigate = useNavigate();
   const emailDom = useRef();
   const passwordDom = useRef();
 
-  // function to handle the user login
   async function handleSubmit(e) {
     e.preventDefault();
-
     const emailValue = emailDom.current.value;
     const passValue = passwordDom.current.value;
     if (!emailValue || !passValue) {
-      alert("Please provide all requirs ");
-
+      // alert("please provide all required information ");
       return;
     }
 
+    // so let us send request to the database
     try {
       const { data } = await axios.post("/users/login", {
         email: emailValue,
         password: passValue,
       });
-      alert("logged in successfuly");
-
+      // alert("login successful.  ");
       localStorage.setItem("token", data.token);
-      console.log(data);
       navigate("/");
-      // setUser(data);
     } catch (error) {
-      alert(error?.response?.data?.msg);
+      // alert(error?.response?.data?.msg);
       console.log(error.response.data);
     }
   }
+
   return (
-    <section className={classes.upper_wrapper}>
-      <h3 className="fw-bold">Login to your account</h3>
-      <p>
-        Don’t have an account? <Link to={"/register"}>Create Account</Link>
-      </p>
+    <div className="col card mt-3 p-4 text-center">
+      <div>
+        <h4 className="m-3">Login to your account</h4>
+        <p className="mb-2">
+          Don’t have an account?
+          <a
+            href=""
+            onClick={() => setCurrentPage("signup")}
+            className="fw-semibold text-decoration-none text-warning"
+          >
+            Create a new account
+          </a>
+        </p>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          {/* <span>email </span> */}
-          <input ref={emailDom} type="text" placeholder="email" />
+        <div className="d-flex flex-column gap-3">
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="form-control p-3"
+            ref={emailDom}
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            className="form-control p-3"
+            ref={passwordDom}
+          />
         </div>
-        <br />
-        <div>
-          {/* <span>password</span> */}
-          <input ref={passwordDom} type="text" placeholder="password" />
+
+        <div className="mt-3">
+          <a
+            href=""
+            className="text-decoration-none text-warning d-flex justify-content-end"
+          >
+            Forgot Password
+          </a>
         </div>
-        <button type="submit">Login</button>
+
+        <div className="d-grid mt-2">
+          <button
+            className="btn btn-primary fw-bold px-5 action_btn"
+            type="Submit"
+          >
+            Login
+          </button>
+        </div>
       </form>
-    </section>
+    </div>
   );
-}
+};
 
 export default Login;
