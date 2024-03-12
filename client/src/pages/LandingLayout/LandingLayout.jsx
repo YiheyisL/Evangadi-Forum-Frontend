@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import Header from "../Header/Header";
 import bg from "../../image/bg.jpg";
-import Login from "../login/Login";
-import SignUp from "../Register";
+import LogIn from "../LogIn/LogIn";
+import SignUp from "../SignUp/SignUp";
 
-const LandingLayout = () => {
-  const [currentPage, setCurrentPage] = useState("signup");
+const Landing = () => {
+  const [currentPage, setCurrentPage] = useState("login");
+
   return (
     <section>
       <Header />
       <main
-        className="landing bg-body-tertiary "
+        className="landing  bg-body-tertiary"
         style={{
           background: `url(${bg})`,
           backgroundRepeat: "no-repeat",
@@ -18,21 +19,15 @@ const LandingLayout = () => {
         }}
       >
         <section className="container d-md-flex pt-5 gap-5">
-          {/* form  */}
-          {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
-
+          {/* form login/sign-up */}
+          {currentPage === "login" && <LogIn setCurrentPage={setCurrentPage} />}
           {currentPage === "signup" && (
             <SignUp setCurrentPage={setCurrentPage} />
           )}
 
-          {/* {currentPage === "signup" && (
-            <SignUp setCurrentPage={setCurrentPage} />
-          )} */}
-          {/* <Login /> */}
-
-          {/* message */}
-          <div className="col ">
-            <p className="text-warning  fw-semibold">About</p>
+          {/* welcome message */}
+          <div className="col mt-5">
+            <p className="text-warning fw-smibold">About</p>
             <h1 className="fw-bold">Evangadi Networks Q&A</h1>
             <div className="d-flex flex-column gap-4">
               <p>
@@ -42,22 +37,19 @@ const LandingLayout = () => {
                 follow in your footsteps.
               </p>
               <p>
-                Wheather you are willing to share your knowledge or you are just
+                Weather you are willing to share your knowledge or you are just
                 looking to meet mentors of your own, please start by joining the
                 network here.
               </p>
             </div>
-            <button
-              className="px-5 py-2 fw-bold mt-3"
-              style={{
-                backgroundColor: "rgb(255,133,0)",
-                color: "white",
-                border: "5px",
-                borderRadius: "5px",
-              }}
-            >
-              How It Works
-            </button>
+            <div>
+              <button
+                className="btn btn-warning text-white fw-bold py-2 px-5 mt-3"
+                style={{ background: "#FE8402" }}
+              >
+                HOW IT WORKS
+              </button>
+            </div>
           </div>
         </section>
       </main>
@@ -65,4 +57,4 @@ const LandingLayout = () => {
   );
 };
 
-export default LandingLayout;
+export default Landing;

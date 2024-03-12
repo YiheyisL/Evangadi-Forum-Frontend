@@ -1,9 +1,11 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect, useState, createContext } from "react";
+import "./App.css";
+import React, { useEffect, useState, createContext } from "react";
+import Landing from "./pages/LandingLayout/LandingLayout";
+import Home from "./pages/Home/Home";
+
 import axios from "./api/axiosConfig";
-import About from "./pages/About/About";
-import Home from "./pages/Home";
-import Question from "./pages/AskQuestion/AskQuestion";
+import AskQuestion from "./pages/AskQuestion/AskQuestion";
 import Answer from "./pages/Answer/Answer";
 import Footer from "./pages/Footer/Footer";
 
@@ -14,8 +16,10 @@ function App() {
   const [question, setQuestion] = useState({});
 
   // console.log(question)
+  //console.log(user);
 
   const token = localStorage.getItem("token");
+  // console.log(token)
   const navigate = useNavigate();
 
   async function checkUser() {
@@ -24,7 +28,7 @@ function App() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setuser(data);
-      console.log(data);
+      // console.log(data)
     } catch (error) {
       navigate("/Login");
       console.log(error.response);
@@ -33,7 +37,7 @@ function App() {
 
   async function getQuestion() {
     try {
-      const { data } = await axios.get("/question/getquestions", {
+      const { data } = await axios.get("/questions/all-questions", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -51,11 +55,11 @@ function App() {
   }, []);
 
   return (
-    <AppState.Provider value={{ user, setuser, question, setQuestion }}>
+    <AppState.Provider value={{ user, setuser, question, setQuestion, token }}>
       <Routes>
-        <Route path="/Login" element={<About />} />
+        <Route path="/Login" element={<Landing />} />
         <Route path="/" element={<Home />} />
-        <Route path="/questions" element={<Question />} />
+        <Route path="/questions" element={<AskQuestion />} />
         <Route path="/answer" element={<Answer />} />
       </Routes>
       <Footer />

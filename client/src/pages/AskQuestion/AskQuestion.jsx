@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../index.css";
 import Header from "../Header/Header";
-
 import axios from "../../api/axiosConfig";
 import { v4 as uuidv4 } from "uuid";
 import { AppState } from "../../App";
@@ -38,7 +36,7 @@ const AskQuestion = () => {
 
     try {
       const response = await axios.post(
-        "/question/postquestions",
+        "/questions/postquestions",
         {
           questionid: questionid,
           userid: userid,
@@ -112,12 +110,8 @@ const AskQuestion = () => {
                 ref={titleDom}
               />
             </div>
-            <div cla>
-              {/* <input
-                type="text"
-                placeholder="Question Description "
-                className="form-control py-5  "
-              /> */}
+
+            <div>
               <textarea
                 class="form-control p-4"
                 id="exampleFormControlTextarea1"
@@ -126,6 +120,7 @@ const AskQuestion = () => {
                 ref={descriptionDom}
               ></textarea>
             </div>
+
             <div>
               <input
                 type="text"

@@ -1,14 +1,13 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "../../api/axiosConfig.js";
 import { AppState } from "../../App.jsx";
 import Header from "../Header/Header.jsx";
 import { PiUserCircleDuotone } from "react-icons/pi";
-import { FaAngleRight } from "react-icons/fa6";
 
 const Answer = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Parse the query string to extract the title and description
   const queryParams = new URLSearchParams(location.search);
@@ -18,6 +17,7 @@ const Answer = () => {
   const questionid = queryParams.get("questionid");
 
   const { user } = useContext(AppState);
+  // console.log(user)
 
   //  console.log(questionid,user.userid)
 
@@ -71,8 +71,9 @@ const Answer = () => {
       });
       //  console.log(questionid)
 
-      // console.log(response.data); // Log the response data
+      // console.log(response.data);
       setData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error.response);
     }
@@ -108,34 +109,23 @@ const Answer = () => {
           <div>
             {data.allanswer &&
               data.allanswer.map((item, index) => (
-                <a
-                  href="#"
-                  key={index}
-                  className="text-decoration-none text-black"
-                >
+                <div key={index} className="text-decoration-none text-black">
                   <hr />
-                  {/* user and arow container */}
-                  <div className="d-flex justify-content-between">
-                    <div className="d-md-flex align-items-center">
-                      {/* user and question  */}
-                      <div className="user">
-                        {/* user */}
-                        <div>
-                          <PiUserCircleDuotone />
-                        </div>
-                        {/* <div>Fitsum </div> */}
-                        <div>{item.username}</div>
-                      </div>
+                  {/* user and arrow container */}
+                  <div className="d-md-flex align-items-center">
+                    {/* user and question  */}
+                    <div className="d-flex flex-column align-items-center gap-3">
+                      {/* user */}
                       <div>
-                        <p>{item.answer}</p>
+                        <PiUserCircleDuotone size={100} />
                       </div>
+                      <div>{user.username}</div>
                     </div>
-
-                    {/* arow */}
-                    {/* <div className="align-items-center">
-                </div> */}
+                    <div>
+                      <p>{item.answer}</p>
+                    </div>
                   </div>
-                </a>
+                </div>
               ))}
           </div>
         </div>
